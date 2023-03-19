@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show varioys app options and settings
 private let reuseIdentifier = "Cell"
 
 final class RMSettingsViewController: UIViewController{

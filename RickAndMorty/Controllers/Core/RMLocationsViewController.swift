@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show and search for different locations
 private let reuseIdentifier = "Cell"
 
 final class RMLocationsViewController:UIViewController{

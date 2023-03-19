@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show and search for different characters 
 private let reuseIdentifier = "Cell"
 
 final class RMCharactersViewController: UIViewController {
