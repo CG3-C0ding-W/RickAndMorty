@@ -11,6 +11,7 @@ import UIKit
 class RMCharacterDetailViewController: UIViewController {
 
     init(viewModel: RMCharacterDetailViewViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil,
                    bundle: nil)
     }
@@ -24,6 +25,7 @@ class RMCharacterDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
+        title = viewModel.title
     }
     
 }
