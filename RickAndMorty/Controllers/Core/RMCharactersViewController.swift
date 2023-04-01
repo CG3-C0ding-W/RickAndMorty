@@ -33,12 +33,13 @@ final class RMCharactersViewController: UIViewController, RMCharacterListViewDel
         ])
     }
     
-    // Mark: - RMCharacterListViewDelegat implementation
+    // Mark: - RMCharacterListViewDelegate implementation
     
     func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter) {
         // Open detail controller for that character
         let viewModel = RMCharacterDetailViewViewModel(character: character)
         let detailVC = RMCharacterDetailViewController(viewModel: viewModel)
+        detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
