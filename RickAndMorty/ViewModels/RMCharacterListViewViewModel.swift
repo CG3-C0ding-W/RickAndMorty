@@ -85,6 +85,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         return cell
     }
     
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at 
         indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionFooter else {
@@ -93,6 +94,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         
         let footer = collectionView.dequeue
     }
+    */
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
@@ -112,7 +114,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 
 //Mark: - Scroll View
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
-    scrollViewDidScroll(_ scrollView: UIScrollView) {
+   func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 
         guard shouldShowLoadMoreIndicator else {
             return
