@@ -88,17 +88,15 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at 
         indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionFooter else {
-            //return UICollectionReusableView()
-            fatalError("Unsupported")
-        }        
-        
-        let footer = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReusableIdentifier: RMFooterLoadingCollectionReusableView.identifier,
-            for: indexPath
-        )
-        
+        guard kind == UICollectionView.elementKindSectionFooter,  
+            let footer = collectionView.dequeueReusableSupplementaryView(
+             ofKind: kind,
+             withReusableIdentifier: RMFooterLoadingCollectionReusableView.identifier,
+             for: indexPath
+            ) as? RMFootetrLoadingCollectionReusableView else {
+                fatalError("Unsupported")
+        }
+        footer.startAnimating()    
         return footer
     }
     
