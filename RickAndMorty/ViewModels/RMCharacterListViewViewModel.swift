@@ -132,5 +132,11 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
         guard shouldShowLoadMoreIndicator else {
             return
         }
+        let offset = scrollView.contentOffset.y
+        let totalContentHeight = scrollView.contentSize.height
+        let totalScrollViewFixedHeight = scrollView.frame.size.height
+        print("Offset: \(offset)")
+        print("totalContentHeight: \(totalContentHeight)")
+        print("totalScrollViewFixedHeight: \(totalScrollViewFixedHeight)")
     }
 }
