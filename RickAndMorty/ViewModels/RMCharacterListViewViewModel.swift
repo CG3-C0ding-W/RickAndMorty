@@ -18,6 +18,8 @@ final class RMCharacterListViewViewModel: NSObject {
     
     public weak var delegate: RMCharacterListViewViewModelDelegate?
     
+    private var isLoadingMoreCharacter: false
+    
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
@@ -129,14 +131,17 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 
-        guard shouldShowLoadMoreIndicator else {
+        guard shouldShowLoadMoreIndicator, isLoadingMoreCharacters else {
             return
         }
         let offset = scrollView.contentOffset.y
         let totalContentHeight = scrollView.contentSize.height
         let totalScrollViewFixedHeight = scrollView.frame.size.height
-        print("Offset: \(offset)")
-        print("totalContentHeight: \(totalContentHeight)")
-        print("totalScrollViewFixedHeight: \(totalScrollViewFixedHeight)")
+        
+        if offset >= (totalContentHeight - totalScrollVieewFixedHeight -120) {
+            print("Should start fetching more")
+            isLoadingMoreCharacters = true
+        }
+        
     }
 }
