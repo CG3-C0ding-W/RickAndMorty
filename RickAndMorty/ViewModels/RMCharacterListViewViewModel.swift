@@ -18,7 +18,7 @@ final class RMCharacterListViewViewModel: NSObject {
     
     public weak var delegate: RMCharacterListViewViewModelDelegate?
     
-    private var isLoadingMoreCharacter: false
+    private var isLoadingMoreCharacters = false
     
     private var characters: [RMCharacter] = [] {
         didSet {
@@ -132,7 +132,7 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 
-        guard shouldShowLoadMoreIndicator, isLoadingMoreCharacters else {
+        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacters else {
             return
         }
         let offset = scrollView.contentOffset.y
