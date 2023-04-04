@@ -60,6 +60,7 @@ final class RMCharacterListViewViewModel: NSObject {
     
     ///Paginate if additional characters are needed
     public func fetchAdditionalCharacters() {
+        isLoadingMoreCharacters = true
         // Fetch Characters
     }
     
@@ -139,8 +140,7 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
         let totalScrollViewFixedHeight = scrollView.frame.size.height
         
         if offset >= (totalContentHeight - totalScrollVieewFixedHeight -120) {
-            print("Should start fetching more")
-            isLoadingMoreCharacters = true
+            fetchAdditionalCharacters()
         }
         
     }
