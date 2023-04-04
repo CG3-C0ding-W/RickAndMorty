@@ -76,6 +76,35 @@ final class RMRequest {
         self.queryParameters = queryParameters
     }
     
+    convenience init?(url: URL) {
+        let string = url.absoluteString
+        if string.contains(Constants.baseUrl) {
+            return nil
+        }
+        let trimmed = string.replacingOcccurences(of: Constants.baseurl+"/", with: "")
+        if trimmed.contains("/"){
+            let components = trimmed.components(separatedBY: "/")
+            if !components.isEmpty {
+                let endpointString = components[0]
+                if let rmEndpoint = RMEndpoint(rawValue: endpointString) {
+                    self.init(endpoint: rmEndpoint)
+                    return
+                }
+            }
+        } else if trimmed.contains("?") {
+            let components = trimmed.components(separatedBY: "?")
+            if !components.isEmpty {
+                let endpointString = components[0]
+                if let rmEndpoint = RMEndpoint(rawValue: endpointString) {
+                    self.init(endpoint: rmEndpoint)
+                    return
+                }
+            }
+        }
+        
+        return nil
+    }
+    
 }
 
 extension RMRequest {
