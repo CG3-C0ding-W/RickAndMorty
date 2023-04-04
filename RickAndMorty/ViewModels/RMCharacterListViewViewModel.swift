@@ -39,7 +39,7 @@ final class RMCharacterListViewViewModel: NSObject {
     public func fetchCharacters() {
         RMService.shared.execute(
             .listCharactersRequest,
-            expecting: RMGetAllCharacterResponse.self
+            expecting: RMGetAllCharactersResponse.self
         ) { [weak self] result in
             switch result {
             case .success(let responseModel):
@@ -62,7 +62,7 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
-        return apiInfo.next != nil
+        return apiInfo?.next != nil
     }
 }
 
@@ -84,7 +84,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         cell.configure(with: cellViewModels[indexPath.row])
         return cell
     }
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at 
         indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionFooter else {
@@ -93,7 +93,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         
         let footer = collectionView.dequeue
     }
-    
+    */
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
         let width = (bounds.width-30)/2
@@ -112,7 +112,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 
 //Mark: - Scroll View
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
-    scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 
         guard shouldShowLoadMoreIndicator else {
             return
