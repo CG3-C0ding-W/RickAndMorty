@@ -83,16 +83,23 @@ final class RMCharacterListView: UIView {
 }
 
 extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
-    func didSelectCharacter(_ character: RMCharacter) {
-        delegate?.rmCharacterListView(self, didSelectCharacter: character)
-    }
-    
-    func didLoadInitialCharacters() {
-        spinner.stopAnimating()
-        collectionView.isHidden = false
-        collectionView.reloadData() // Initial fetch
-        UIView.animate(withDuration: 0.4){
-                self.collectionView.alpha = 1
+        func didSelectCharacter(_ character: RMCharacter) {
+            delegate?.rmCharacterListView(self, didSelectCharacter: character)
+        }
+
+        func didLoadInitialCharacters() {
+            spinner.stopAnimating()
+            collectionView.isHidden = false
+            collectionView.reloadData() // Initial fetch
+            UIView.animate(withDuration: 0.4){
+                    self.collectionView.alpha = 1
+                }
+
+        func didLoadMoreCharacters(with newIndexPaths: [IndexPath]){
+            collectionView.performBatchUpdates {
+                self.collectionView.insertItems(at: newIndexPaths)
             }
+        }    
+        
     }
 }
