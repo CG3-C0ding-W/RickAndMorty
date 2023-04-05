@@ -11,7 +11,6 @@ import UIKit
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
-    
     func didSelectCharacter(_ character: RMCharacter)
 }
 
@@ -54,6 +53,7 @@ final class RMCharacterListViewViewModel: NSObject {
                 let info = responseModel.info
                 self?.characters = results
                 self?.apiInfo = info
+               
                 DispatchQueue.main.async {
                     self?.delegate?.didLoadInitialCharacters()
                 }
@@ -66,12 +66,15 @@ final class RMCharacterListViewViewModel: NSObject {
     ///Paginate if additional characters are needed
     public func fetchAdditionalCharacters(url: URL) {
         guard !isLoadingMoreCharacters else {
+            isLoadingMoreCharacters = true
             return
         }
         
         isLoadingMoreCharacters = true
+        
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacters = false
+            print("Failed to create request")
             return
         }
         
@@ -88,19 +91,21 @@ final class RMCharacterListViewViewModel: NSObject {
                 let originalCount = strongSelf.characters.count
                 let newCount = moreResults.count
                 let total = originalCount + newCount
-                let startingIndex = total - newCount
-                let indexPathstoAdd: [IndexPath] = Array(startingIndex..<(startingIndex + newCount)).compactMap({
+                let startingIndex = total - newCount - 1
+                
+                let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex + newCount)).compactMap({
                     return IndexPath(row: $0, section: 0)
                 })
-            
-                strongSelf.characters.append(contentOf: moreResults)
+                
+                strongSelf.characters.append(contentsOf: moreResults)
+                
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(
                         with: indexPathsToAdd
                     )
-                    strongSelf.isLoadingMoreCharacters = false
+                    //strongSelf.isLoadingMoreCharacters = false
                 }   
-            case .failure
+            case .failure(let failure):
                 print(String(describing: failure))
                 self?.isLoadingMoreCharacters = false
             }
@@ -172,7 +177,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     }
 }
 
-//Mark: - Scroll View
+//MARK: - Scroll View
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -186,7 +191,7 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
         }
         
         
-        Timer.scheduledTime(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
@@ -198,3 +203,4 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
         }
     }
 }
+
