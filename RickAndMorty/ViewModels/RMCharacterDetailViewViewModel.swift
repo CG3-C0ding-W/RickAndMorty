@@ -22,20 +22,4 @@ final class RMCharacterDetailViewViewModel {
         character.name.uppercased()
     }
     
-    public func fetchCharacterData() {
-        print(character.url)
-        guard let url = requestUrl,
-            request = RMRequest(url: url) else {
-            print("Failed to create")
-          return
-        }
-        RMService.shared.execute(request, expecting: RMCharacter.self) { result in 
-            switch result {
-            case .success(let success):
-                print(String(describing:success))
-            case .failure(let failure):
-                print(String(describing:failure))
-            }
-        }
-    }
 }
