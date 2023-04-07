@@ -32,7 +32,18 @@ class RMCharacterDetailViewController: UIViewController {
         view.backgroundColor = .secondarySystemBackground
         title = viewModel.title
         view.addSubview(detailView)
+        navigationItem.rightBarButtonItem = UIzBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(didTapShare)
+        )
         addConstraints()
+        viewModel.fetchCharacterData()
+    }
+    
+    @objc
+    private func didTapShare() {
+        //Share character info
     }
     
     private func addConstraints() {
