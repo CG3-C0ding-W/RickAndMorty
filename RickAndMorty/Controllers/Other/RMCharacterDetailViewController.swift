@@ -11,6 +11,10 @@ import UIKit
 class RMCharacterDetailViewController: UIViewController {
     private let viewModel: RMCharacterDetailViewViewModel
     
+    private let detailView = RMCharacterDetailView()
+    
+    ///MARK:  - Init
+    
     init(viewModel: RMCharacterDetailViewViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil,
@@ -27,6 +31,16 @@ class RMCharacterDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
         title = viewModel.title
+        view.addSubview(detailView)
+        addConstraints()
     }
     
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            detailView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
 }
