@@ -29,5 +29,13 @@ final class RMCharacterDetailViewViewModel {
             print("Failed to create")
           return
         }
+        RMService.shared.execute(request, expecting: RMCharacter.self) { result in 
+            switch result {
+            case .success(let success):
+                print(String(describing:success))
+            case .failure(let failure):
+                print(String(describing:failure))
+            }
+        }
     }
 }
