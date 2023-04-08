@@ -103,7 +103,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         viewModel.fetchImage{ [weak self] result in
             switch result {
             case.success(let data):
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     let Image = UIImage(data: data)
                     self?.imageView.image = Image
                 }

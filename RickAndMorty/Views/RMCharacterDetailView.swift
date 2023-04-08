@@ -10,7 +10,7 @@ import UIKit
 /// View for single character info
 final class RMCharacterDetailView: UIView {
    
-   private var collecctionView: UICollectionView?
+   private var collectionView: UICollectionView?
    
    private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -23,7 +23,7 @@ final class RMCharacterDetailView: UIView {
    
    override init(frame: CGRect) {
       super.init(frame: frame)
-      translatesAutoResizingMaskIntoConstraints = false
+      translatesAutoresizingMaskIntoConstraints = false
       backgroundColor = .systemPurple
       let collectionView = createCollectionView()
       self.collectionView = collectionView
@@ -53,8 +53,8 @@ final class RMCharacterDetailView: UIView {
    }
    
    private func createCollectionView() -> UICollectionView {
-      let layout = UICollectionViewCompositionalLayout { sectionIndex, _in
-         return self.createSection(for:sectionIndex)
+      let layout = UICollectionViewCompositionalLayout{ sectionIndex, _ in
+         return self.createSection(for: sectionIndex)
       }
       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
       collectionView.register(UICollectionViewCell.self,
@@ -63,19 +63,19 @@ final class RMCharacterDetailView: UIView {
       return collectionView
    }
    
-   private func createSection(for: sectionIndex: Int) -> NSCollectionLayoutSection{
+   private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection{
       let item = NSCollectionLayoutItem(
          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0)
+            widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
          )
       )
       let group = NSCollectionLayoutGroup.vertical(
          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0)
+            widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(150)
          ) ,
-         subItems: [item]
+         subitems: [item]
       )
       let section = NSCollectionLayoutSection(group: group)
       return section

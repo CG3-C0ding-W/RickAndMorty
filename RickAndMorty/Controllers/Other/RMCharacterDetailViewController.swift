@@ -32,7 +32,7 @@ class RMCharacterDetailViewController: UIViewController {
         view.backgroundColor = .secondarySystemBackground
         title = viewModel.title
         view.addSubview(detailView)
-        navigationItem.rightBarButtonItem = UIzBarButtonItem(
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .action,
             target: self,
             action: #selector(didTapShare)
